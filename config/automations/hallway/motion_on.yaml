@@ -1,0 +1,25 @@
+id: 'hallway_motion_on'
+alias: Hallway motion sensor [on]
+trigger:
+  - platform: state
+    entity_id:
+      - binary_sensor.hue_motion_sensor_1_motion
+    from: 'off'
+    to: 'on'
+condition:
+  - condition: or
+    conditions:
+      - condition: numeric_state
+        entity_id: sensor.hue_motion_sensor_1_illuminance
+        attribute: light_level
+        below: '2500'
+      - condition: state
+        entity_id: sun.sun
+        state: 'below_horizon'
+action:
+  - type: turn_on
+    device_id: f201b437290ee7bd19b11482173c490d
+    entity_id: light.hue_enrave_ceiling_1
+    domain: light
+    brightness_pct: 30
+mode: single

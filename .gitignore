@@ -3,6 +3,8 @@ config/*
 
 # Whitelist
 !config/*.yaml
+!config/automations
+!config/ui-lovelace
 
 # Blacklist
 config/secrets.yaml

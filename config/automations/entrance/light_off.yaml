@@ -1,0 +1,12 @@
+id: 'entrance_light_off'
+alias: Entrance light [off]
+trigger:
+  - platform: state
+    entity_id: sun.sun
+    from: 'below_horizon'
+action:
+  - type: turn_off
+    device_id: 6aad459fd72ca1be307874859184b639
+    entity_id: light.hue_outdoor_wall_1
+    domain: light
+mode: single

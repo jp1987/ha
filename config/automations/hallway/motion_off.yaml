@@ -1,0 +1,19 @@
+id: 'hallway_motion_off'
+alias: Hallway motion sensor [off]
+trigger:
+  - platform: state
+    entity_id:
+      - binary_sensor.hue_motion_sensor_1_motion
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 0
+condition: []
+action:
+  - type: turn_off
+    device_id: f201b437290ee7bd19b11482173c490d
+    entity_id: light.hue_enrave_ceiling_1
+    domain: light
+mode: single
