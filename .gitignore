@@ -1,0 +1,11 @@
+# Ignore everything
+config/*
+
+# Whitelist
+!config/*.yaml
+
+# Blacklist
+config/secrets.yaml
+
+# IDE
+.idea

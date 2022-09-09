@@ -1,0 +1,42 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Custom
+homeassistant:
+  name: !secret zone_home_name
+  latitude: !secret zone_home_latitude
+  longitude: !secret zone_home_longitude
+  unit_system: metric
+  time_zone: Europe/Amsterdam
+
+zone:
+  - name: Work Jesper
+    latitude: !secret zone_work_jesper_latitude
+    longitude: !secret zone_work_jesper_longitude
+    icon: mdi:briefcase
+  - name: Work Adrianna
+    latitude: !secret zone_work_adrianna_latitude
+    longitude: !secret zone_work_adrianna_longitude
+    icon: mdi:briefcase
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+wake_on_lan:
+
+samsungtv:
+  - host: 192.168.178.52
+    name: Samsung
+    turn_on_action:
+      - service: wake_on_lan.send_magic_packet
+        data:
+          mac: "44:5C:E9:11:F4:9A"
+
+lovelace:
+  mode: yaml
+
+automation: !include_dir_list automations
+script: !include scripts.yaml
+scene: !include scenes.yaml
+sensor: !include sensors.yaml
