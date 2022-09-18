@@ -1,0 +1,9 @@
+# UniFi presence detection
+# on iPhone, make sure that: Settings -> Wifi -> Info icon -> Private Address is turned off
+# this will guarantee a static mac address, so UniFi device_tracker entities are reliable
+binary_sensor:
+  name: "People home (UniFi)"
+  unique_id: "people_home_unifi"
+  state: >
+    {{ is_state('device_tracker.jespersiphone', 'home')
+    or is_state('device_tracker.adriannasiphone', 'home') }}

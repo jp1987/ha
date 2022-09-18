@@ -1,0 +1,25 @@
+id: "upstairs_hallway_motion_night_off"
+alias: Upstairs hallway motion sensor night [off]
+trigger:
+  - platform: state
+    entity_id:
+      - binary_sensor.hue_motion_sensor_1_motion_2
+    from: "on"
+    to: "off"
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+condition:
+  - condition: state
+    entity_id: sun.sun
+    state: "below_horizon"
+  - condition: state
+    entity_id: light.upstairs_hallway
+    state: "on"
+action:
+  - type: turn_off
+    device_id: 1273f332f3a5e9c35326212f3cfe35bc
+    entity_id: light.upstairs_hallway
+    domain: light
+mode: single

@@ -1,0 +1,10 @@
+sensor:
+  unique_id: "next_sunset"
+  name: "Next sunset"
+  icon: mdi:weather-sunset-down
+  state: >
+    {% if is_state('sun.sun', 'above_horizon') %}
+      {{ as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom('%H:%M') }}
+    {% else %}
+      Unavailable
+    {% endif %}

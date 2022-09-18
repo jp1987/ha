@@ -1,0 +1,178 @@
+title: "Home"
+icon: mdi:home
+badges:
+  # Presence detection
+  - name: "Jesper"
+    entity: device_tracker.jespersiphone
+    image: /local/jesper.jpeg
+  - name: "Adrianna"
+    entity: device_tracker.adriannasiphone
+    image: /local/adrianna.jpeg
+
+  # Climate
+  - name: "Weather"
+    entity: weather.forecast_home
+  - entity: sensor.woonkamer_humidity
+    name: Living Room Humidity
+
+  # Show next sunset OR next sunrise
+  - type: entity-filter
+    entities:
+      - entity: sensor.next_sunset
+        name: "Next Sunset"
+      - entity: sensor.next_sunrise
+        name: "Next Sunrise"
+    state_filter:
+      - operator: "!="
+        value: "Unavailable"
+
+  # Track lamp status only when they're on
+  - type: entity-filter
+    entities:
+      - entity: light.attic_2 # _1 is the room, _2 the zone
+        name: Attic Lights
+      - entity: light.hue_enrave_ceiling_1
+        name: Entrance Light
+      - entity: light.upstairs_hallway
+        name: Upstairs Hallway Light
+    state_filter:
+      - operator: "=="
+        value: "on"
+cards:
+  - type: grid
+    columns: 1
+    square: false
+    cards:
+      - type: grid
+        columns: 2
+        square: true
+        cards:
+          - type: button
+            icon: mdi:sun-clock
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.living_room_morning
+          - type: button
+            icon: mdi:lightbulb-night-outline
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.living_room_evening
+          - type: button
+            icon: mdi:sleep
+            tap_action:
+              action: call-service
+              service: light.turn_off
+              service_data:
+                entity_id: light.woonkamer
+          - type: button
+            icon: mdi:home-export-outline
+      - type: weather-forecast
+        entity: weather.forecast_home
+  - type: grid
+    columns: 1
+    square: false
+    cards:
+      - type: thermostat
+        entity: climate.woonkamer
+        name: Living Room
+      - type: grid
+        columns: 3
+        square: true
+        cards:
+          # TODO find alternative
+          - type: gauge
+            entity: sensor.adrianna_jesper_temperature
+            name: Bedroom
+            severity:
+              red: 0
+              yellow: 12
+              green: 18
+          - type: gauge
+            entity: sensor.babykamer_temperature
+            name: Baby
+            severity:
+              red: 0
+              yellow: 12
+              green: 18
+          - type: gauge
+            entity: sensor.tobi_temperature
+            name: Tobi
+            severity:
+              red: 0
+              yellow: 12
+              green: 18
+  - type: grid
+    columns: 1
+    square: false
+    cards:
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - entity: light.hue_outdoor_wall_1
+            name: "Front Door"
+          - entity: light.hue_outdoor_wall_1
+            type: custom:rgb-light-card
+            # TODO add more colors
+            colors:
+              - rgb_color:
+                  - 255
+                  - 127
+                  - 255
+                brightness: 220
+                transition: 1
+      - type: entities
+        entities:
+          - entity: light.eettafel
+          - entity: light.bureau
+          - entity: light.lounge
+          - entity: light.tv
+          - entity: light.plafondlamp
+      - type: media-control
+        entity: media_player.samsung_q70_series_65
+      - type: conditional
+        conditions:
+          - entity: media_player.samsung_q70_series_65
+            state: "on"
+        card:
+          type: grid
+          columns: 4
+          square: true
+          cards:
+            - type: button
+              name: Netflix
+              icon: mdi:netflix
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                service_data:
+                  entity_id: media_player.living_room
+                  source: Netflix-
+            - type: button
+              name: Ziggo Go
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                service_data:
+                  entity_id: media_player.living_room
+                  source: Ziggo GO TV
+            - type: button
+              name: Prime
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                service_data:
+                  entity_id: media_player.living_room
+                  source: Prime Video
+            - type: button
+              name: Spotify
+              icon: mdi:spotify
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                service_data:
+                  entity_id: media_player.living_room
+                  source: Spotify

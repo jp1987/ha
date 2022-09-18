@@ -1,9 +1,9 @@
-id: 'entrance_light_on'
-alias: Entrance light [on]
+id: "front_door_light_on"
+alias: Front door light [on]
 trigger:
   - platform: state
     entity_id: sun.sun
-    to: 'below_horizon'
+    to: "below_horizon"
 action:
   - type: turn_on
     device_id: 6aad459fd72ca1be307874859184b639

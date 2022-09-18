@@ -4,6 +4,7 @@ config/*
 # Whitelist
 !config/*.yaml
 !config/automations
+!config/templates
 !config/ui-lovelace
 
 # Blacklist

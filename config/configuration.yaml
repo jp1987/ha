@@ -9,6 +9,7 @@ homeassistant:
   unit_system: metric
   time_zone: Europe/Amsterdam
 
+# Zones
 zone:
   - name: Work Jesper
     latitude: !secret zone_work_jesper_latitude
@@ -19,24 +20,38 @@ zone:
     longitude: !secret zone_work_adrianna_longitude
     icon: mdi:briefcase
 
-# Text to speech
-tts:
-  - platform: google_translate
+# Add Automations to sidebar for quick access
+panel_custom:
+  - name: panel_automations
+    sidebar_title: Automations
+    sidebar_icon: mdi:cogs
+    url_path: 'config/automation'
+    module_url: /api/hassio/app/entrypoint.js
+    embed_iframe: true
+    require_admin: true
 
+# Enable wake_on_lan integration for samsungtv
 wake_on_lan:
 
+# Samsung TV config
 samsungtv:
   - host: 192.168.178.52
     name: Samsung
     turn_on_action:
       - service: wake_on_lan.send_magic_packet
         data:
-          mac: "44:5C:E9:11:F4:9A"
+          mac: !secret mac_address_samsungtv
 
+# Lovelace resources
 lovelace:
   mode: yaml
+  resources:
+    - url: https://cdn.jsdelivr.net/npm/rgb-light-card
+      type: module
 
+# Includes
 automation: !include_dir_list automations
 script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include sensors.yaml
+template: !include_dir_list templates
