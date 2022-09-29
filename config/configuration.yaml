@@ -42,6 +42,22 @@ samsungtv:
         data:
           mac: !secret mac_address_samsungtv
 
+# Light groups
+light:
+  - platform: group
+    unique_id: "all_indoor_lights"
+    name: "All indoor lights"
+    entities:
+      - light.attic_2 # _1 is the room, _2 the zone
+      - light.bedroom # room
+      - light.bureau # zone
+      - light.eettafel # zone
+      - light.upstairs_hallway_light # zone
+      - light.plafondlamp # zone
+      - light.hal_beneden # zone
+      - light.tv # zone
+      - light.lounge # zone
+
 # Lovelace resources
 lovelace:
   mode: yaml

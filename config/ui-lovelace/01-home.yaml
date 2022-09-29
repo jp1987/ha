@@ -35,6 +35,8 @@ badges:
         name: Entrance Light
       - entity: light.upstairs_hallway
         name: Upstairs Hallway Light
+      - entity: light.hue_filament_bulb_1_2
+        name: Bedroom Light
     state_filter:
       - operator: "=="
         value: "on"
@@ -67,9 +69,14 @@ cards:
               action: call-service
               service: light.turn_off
               service_data:
-                entity_id: light.woonkamer
+                entity_id: light.woonkamer # room, includes the kitchen!
           - type: button
             icon: mdi:home-export-outline
+            tap_action:
+              action: call-service
+              service: light.turn_off
+              service_data:
+                entity_id: light.all_indoor_lights
       - type: weather-forecast
         entity: weather.forecast_home
   - type: grid
@@ -81,7 +88,7 @@ cards:
         name: Living Room
       - type: grid
         columns: 3
-        square: true
+        square: false
         cards:
           # TODO find alternative
           - type: gauge
@@ -105,6 +112,9 @@ cards:
               red: 0
               yellow: 12
               green: 18
+      - type: entity
+        entity: sensor.waze_travel_time
+        name: "Travel time to work"
   - type: grid
     columns: 1
     square: false
