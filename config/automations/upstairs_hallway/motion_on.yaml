@@ -2,8 +2,7 @@ id: "upstairs_hallway_motion_night_on"
 alias: Upstairs hallway motion sensor night [on
 trigger:
   - platform: state
-    entity_id:
-      - binary_sensor.hue_motion_sensor_1_motion_2
+    entity_id: binary_sensor.hue_motion_sensor_1_motion_2
     from: "off"
     to: "on"
 condition:
@@ -17,4 +16,7 @@ action:
   - service: scene.turn_on
     target:
       entity_id: scene.upstairs_hallway_night
+  - service: homeassistant.turn_on
+    target:
+      entity_id: input_boolean.automated_light_upstairs_hallway
 mode: single

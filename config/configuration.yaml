@@ -55,3 +55,4 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include sensors.yaml
 template: !include_dir_list templates
+input_boolean: !include input_boolean.yaml

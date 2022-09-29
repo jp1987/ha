@@ -11,11 +11,13 @@ trigger:
       seconds: 0
 condition:
   - condition: state
-    entity_id: light.hue_enrave_ceiling_1
+    entity_id: input_boolean.automated_light_entrance
     state: "on"
 action:
-  - type: turn_off
-    device_id: f201b437290ee7bd19b11482173c490d
-    entity_id: light.hue_enrave_ceiling_1
-    domain: light
+  - service: light.turn_off
+    target:
+      entity_id: light.hue_enrave_ceiling_1
+  - service: homeassistant.turn_off
+    target:
+      entity_id: input_boolean.automated_light_entrance
 mode: single
